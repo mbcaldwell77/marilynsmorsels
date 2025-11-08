@@ -47,12 +47,26 @@ export default function IngredientLabelModal({
             ×
           </button>
         </div>
-        <div className="overflow-auto max-h-[calc(90vh-80px)]">
-          <iframe
-            src={labelUrl}
-            className="w-full h-full min-h-[600px]"
+        <div className="overflow-auto max-h-[calc(90vh-80px)] flex justify-center bg-gray-50 p-4">
+          <object
+            data={`${labelUrl}#toolbar=0&navpanes=0`}
+            type="application/pdf"
+            className="w-full min-h-[600px] border-0"
             title={`${cookieName} Ingredient Label`}
-          />
+          >
+            <p className="text-center py-8 text-morselBrown/70">
+              Unable to display PDF.{" "}
+              <a
+                href={labelUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-morselGold hover:underline"
+              >
+                Click here to open in a new tab
+              </a>
+              .
+            </p>
+          </object>
         </div>
       </div>
     </div>
