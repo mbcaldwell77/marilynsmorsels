@@ -60,7 +60,7 @@ export default function ProductCard({ product, tag, onInfoClick }: ProductCardPr
       )}
       <div className="mb-4 flex-1">
         {/* Product image */}
-        <div className="w-full h-48 relative rounded-xl mb-4 overflow-hidden bg-gradient-to-br from-morselGoldLight/20 to-morselGold/10">
+        <div className="w-full h-64 md:h-72 relative rounded-xl mb-4 overflow-hidden bg-gradient-to-br from-morselGoldLight/20 to-morselGold/10">
           <Image
             src={productImage}
             alt={product.name}

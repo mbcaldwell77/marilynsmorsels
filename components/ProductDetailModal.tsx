@@ -108,12 +108,12 @@ export default function ProductDetailModal({
         <div className="overflow-auto flex-1">
           <div className="p-6">
             {/* Product Image */}
-            <div className="w-full h-64 md:h-80 relative rounded-xl mb-6 overflow-hidden bg-gradient-to-br from-morselGoldLight/20 to-morselGold/10">
+            <div className="w-full h-96 md:h-[500px] lg:h-[600px] relative rounded-xl mb-6 overflow-hidden bg-gradient-to-br from-morselGoldLight/20 to-morselGold/10">
               <Image
                 src={productImage}
                 alt={product.name}
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="(max-width: 768px) 100vw, 800px"
               />
             </div>
