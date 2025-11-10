@@ -14,6 +14,34 @@ export default function AboutPage() {
         We keep the menu focused so every morsel that leaves the oven is consistent:
         golden edges, soft centers, and flavors that actually justify reordering.
       </p>
+
+      {/* Marilyn's Quote */}
+      <div className="mt-12 pt-8 border-t border-morselGold/20">
+        <div className="relative bg-gradient-to-br from-morselCream/50 to-morselGold/10 rounded-2xl p-8 md:p-10 shadow-lg shadow-morselGold/10 border border-morselGold/20">
+          <div className="absolute top-6 left-6 text-6xl md:text-7xl font-display text-morselGold/20 leading-none">
+            &quot;
+          </div>
+          <blockquote className="relative z-10 text-lg md:text-xl text-morselBrown/90 leading-relaxed font-body italic pl-8 md:pl-12">
+            <p className="mb-4">
+              I&apos;ve loved baking cookies since I was in the fifth grade, and I especially love the aroma it creates in my home. When my kids were in school, I had to keep a batch of cookies at the ready for them and their friends.
+            </p>
+            <p className="mb-4">
+              Now, many years later, those friends still keep in touch, pleading with me to share my tasty cookies with their kids.
+            </p>
+            <p className="mb-4 font-semibold text-morselCocoa">
+              What an honor that is!
+            </p>
+            <p>
+              Nine grandkids later, the aroma of fresh baked cookies still permeates my home, and my grandkids love helping me bake! I now love seeing the excitement of people&apos;s faces when I deliver them cookies. It&apos;s time for you to see why my family, my kids&apos; friends, and my current friends love my cookies!
+            </p>
+          </blockquote>
+          <div className="mt-6 pt-6 border-t border-morselGold/20">
+            <p className="text-base font-display font-semibold text-morselCocoa">
+              — Marilyn
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
