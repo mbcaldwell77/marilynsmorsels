@@ -3,10 +3,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import logoSquare from "@/assets/clear-logo-square.png";
+import { useSupabaseClient, useSupabaseSession } from "@/components/SupabaseSessionProvider";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const router = useRouter();
+  const session = useSupabaseSession();
+  const supabase = useSupabaseClient();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +21,17 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSignOut = async () => {
+    try {
+      setIsSigningOut(true);
+      await supabase.auth.signOut();
+      router.refresh();
+      router.push("/");
+    } finally {
+      setIsSigningOut(false);
+    }
+  };
 
   return (
     <header
@@ -38,7 +55,7 @@ export default function Navbar() {
             Marilyn&apos;s <span className="text-morselGold">Morsels</span>
           </span>
         </Link>
-        <div className="flex gap-6 text-sm">
+        <div className="flex items-center gap-6 text-sm">
           <Link href="/shop" className="hover:text-morselGold transition-colors duration-150">
             Shop
           </Link>
@@ -48,6 +65,33 @@ export default function Navbar() {
           <Link href="/bulk-orders" className="hover:text-morselGold transition-colors duration-150">
             Bulk Orders
           </Link>
+          {session ? (
+            <>
+              <Link href="/account" className="hover:text-morselGold transition-colors duration-150">
+                Account
+              </Link>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                disabled={isSigningOut}
+                className="rounded-md border border-morselGold/60 px-3 py-1 transition hover:border-morselGold hover:bg-morselGold/10 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {isSigningOut ? "Signing out..." : "Sign out"}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="hover:text-morselGold transition-colors duration-150">
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-md bg-morselGold px-3 py-1 text-white transition hover:bg-morselGold/90"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </header>

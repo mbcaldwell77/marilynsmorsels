@@ -1,0 +1,179 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import type { Database } from "@/lib/supabase/types";
+
+type Profile = Database["public"]["Tables"]["profiles"]["Row"];
+
+type FormState = {
+  full_name: string;
+  phone: string;
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  state: string;
+  postal_code: string;
+};
+
+const emptyFormState: FormState = {
+  full_name: "",
+  phone: "",
+  address_line1: "",
+  address_line2: "",
+  city: "",
+  state: "",
+  postal_code: "",
+};
+
+type Props = {
+  email: string;
+  initialProfile: Profile | null;
+};
+
+export default function ProfileForm({ email, initialProfile }: Props) {
+  const router = useRouter();
+  const [formState, setFormState] = useState<FormState>(() => ({
+    ...emptyFormState,
+    full_name: initialProfile?.full_name ?? "",
+    phone: initialProfile?.phone ?? "",
+    address_line1: initialProfile?.address_line1 ?? "",
+    address_line2: initialProfile?.address_line2 ?? "",
+    city: initialProfile?.city ?? "",
+    state: initialProfile?.state ?? "",
+    postal_code: initialProfile?.postal_code ?? "",
+  }));
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const handleChange = (field: keyof FormState) => (value: string) => {
+    setFormState((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    setIsSubmitting(true);
+
+    const response = await fetch("/api/profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formState),
+    });
+
+    if (!response.ok) {
+      const payload = await response.json().catch(() => ({}));
+      setErrorMessage(payload.error || "We couldn't save your profile. Please try again.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const { profile } = (await response.json()) as { profile: Profile };
+    setFormState((prev) => ({
+      ...prev,
+      ...profile,
+    }));
+    setSuccessMessage("Profile saved.");
+    setIsSubmitting(false);
+    router.refresh();
+  };
+
+  return (
+    <div className="space-y-6">
+      <section className="rounded-lg border border-morselGold/30 bg-white/90 p-8 shadow-sm">
+        <header className="mb-6">
+          <h1 className="text-2xl font-semibold">Account details</h1>
+          <p className="text-sm text-morselBrown/70">Signed in as {email}</p>
+        </header>
+        <form className="grid grid-cols-1 gap-5 md:grid-cols-2" onSubmit={handleSubmit}>
+          <label className="text-sm md:col-span-2">
+            <span className="mb-1 block font-medium">Full name</span>
+            <input
+              type="text"
+              value={formState.full_name}
+              onChange={(event) => handleChange("full_name")(event.target.value)}
+              className="w-full rounded-md border border-morselGold/40 px-3 py-2 focus:border-morselGold focus:outline-none focus:ring"
+            />
+          </label>
+          <label className="text-sm md:col-span-2">
+            <span className="mb-1 block font-medium">Phone</span>
+            <input
+              type="tel"
+              value={formState.phone}
+              onChange={(event) => handleChange("phone")(event.target.value)}
+              className="w-full rounded-md border border-morselGold/40 px-3 py-2 focus:border-morselGold focus:outline-none focus:ring"
+            />
+          </label>
+          <label className="text-sm md:col-span-2">
+            <span className="mb-1 block font-medium">Address line 1</span>
+            <input
+              type="text"
+              value={formState.address_line1}
+              onChange={(event) => handleChange("address_line1")(event.target.value)}
+              className="w-full rounded-md border border-morselGold/40 px-3 py-2 focus:border-morselGold focus:outline-none focus:ring"
+            />
+          </label>
+          <label className="text-sm md:col-span-2">
+            <span className="mb-1 block font-medium">Address line 2</span>
+            <input
+              type="text"
+              value={formState.address_line2}
+              onChange={(event) => handleChange("address_line2")(event.target.value)}
+              className="w-full rounded-md border border-morselGold/40 px-3 py-2 focus:border-morselGold focus:outline-none focus:ring"
+            />
+          </label>
+          <label className="text-sm">
+            <span className="mb-1 block font-medium">City</span>
+            <input
+              type="text"
+              value={formState.city}
+              onChange={(event) => handleChange("city")(event.target.value)}
+              className="w-full rounded-md border border-morselGold/40 px-3 py-2 focus:border-morselGold focus:outline-none focus:ring"
+            />
+          </label>
+          <label className="text-sm">
+            <span className="mb-1 block font-medium">State</span>
+            <input
+              type="text"
+              value={formState.state}
+              onChange={(event) => handleChange("state")(event.target.value)}
+              className="w-full rounded-md border border-morselGold/40 px-3 py-2 focus:border-morselGold focus:outline-none focus:ring"
+            />
+          </label>
+          <label className="text-sm md:col-span-2 md:max-w-xs">
+            <span className="mb-1 block font-medium">Postal code</span>
+            <input
+              type="text"
+              value={formState.postal_code}
+              onChange={(event) => handleChange("postal_code")(event.target.value)}
+              className="w-full rounded-md border border-morselGold/40 px-3 py-2 focus:border-morselGold focus:outline-none focus:ring"
+            />
+          </label>
+          {errorMessage ? (
+            <p className="md:col-span-2 text-sm text-red-600">{errorMessage}</p>
+          ) : null}
+          {successMessage ? (
+            <p className="md:col-span-2 text-sm text-emerald-600">{successMessage}</p>
+          ) : null}
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="rounded-md bg-morselGold px-4 py-2 text-white transition hover:bg-morselGold/90 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {isSubmitting ? "Saving..." : "Save changes"}
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  );
+}
+
