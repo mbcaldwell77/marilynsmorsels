@@ -66,6 +66,8 @@ export default function ProductDetailModal({
     onClose();
   };
 
+  if (!isOpen || !product) return null;
+
   const productImage = productImageMap[product.id] || chipsBowl;
   const ingredientLabel =
     product.flavor !== "half_half"
