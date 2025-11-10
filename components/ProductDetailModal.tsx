@@ -113,7 +113,7 @@ export default function ProductDetailModal({
                 src={productImage}
                 alt={product.name}
                 fill
-                className="object-contain"
+                className="object-cover"
                 sizes="(max-width: 768px) 100vw, 800px"
               />
             </div>
