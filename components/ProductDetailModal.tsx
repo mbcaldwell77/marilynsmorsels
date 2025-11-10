@@ -127,15 +127,15 @@ export default function ProductDetailModal({
                 {product.description}
               </p>
               <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="bg-morselCream/50 rounded-lg p-4">
-                  <p className="text-xs text-morselBrown/60 mb-1">Pack Size</p>
-                  <p className="text-lg font-semibold text-morselCocoa">
+                <div className="bg-morselCream/50 rounded-lg p-5 border border-morselGold/20 shadow-lg shadow-morselGold/20">
+                  <p className="text-sm text-morselBrown/70 mb-2 font-medium">Pack Size</p>
+                  <p className="text-2xl font-bold text-morselCocoa">
                     {product.packSize} Cookies
                   </p>
                 </div>
-                <div className="bg-morselCream/50 rounded-lg p-4">
-                  <p className="text-xs text-morselBrown/60 mb-1">Price</p>
-                  <p className="text-lg font-semibold text-morselCocoa">
+                <div className="bg-morselCream/50 rounded-lg p-5 border border-morselGold/20 shadow-lg shadow-morselGold/20">
+                  <p className="text-sm text-morselBrown/70 mb-2 font-medium">Price</p>
+                  <p className="text-2xl font-bold text-morselCocoa">
                     ${(product.priceCents / 100).toFixed(2)}
                   </p>
                 </div>
