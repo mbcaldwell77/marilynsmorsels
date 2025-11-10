@@ -3,14 +3,14 @@ import { products } from "@/lib/products";
 import Link from "next/link";
 
 export default function BestSellers() {
-  // Show the 12-pack chocolate chip first, then 2 others
+  // Show the 6-pack chocolate chip, 12-pack half & half, and 12-pack butterscotch
   const featured = [
-    products.find((p) => p.id === "cc-12"),
     products.find((p) => p.id === "cc-6"),
+    products.find((p) => p.id === "hh-12"),
     products.find((p) => p.id === "bc-12"),
   ].filter(Boolean) as typeof products;
 
-  const tags = ["Best-seller", "Marilyn's Favorite", "Limited Batch"];
+  const tags = ["Best-seller", "Marilyn's Favorite", "Rising Star"];
 
   return (
     <section className="bg-white py-20">
