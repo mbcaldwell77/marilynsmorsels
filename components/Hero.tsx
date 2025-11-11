@@ -10,7 +10,7 @@ export default function Hero() {
   const parallaxOffset = useParallax({ speed: 0.3 });
 
   return (
-    <section className="relative min-h-[calc(100vh-64px)] md:min-h-[600px] flex items-center justify-center overflow-hidden py-12 md:py-0">
+    <section className="relative min-h-[calc(100vh-64px)] md:h-[85vh] md:min-h-[600px] flex items-center justify-center overflow-hidden py-12 md:py-0">
       {/* Background image with overlay */}
       <div className="absolute inset-0 z-0">
         <div
