@@ -11,6 +11,9 @@ export interface ProductOption {
   stripePriceId: string;
 }
 
+const priceId = (envKey: string, fallback: string) =>
+  process.env[envKey] ?? fallback;
+
 export const products: ProductOption[] = [
   {
     id: "cc-6",
@@ -19,7 +22,7 @@ export const products: ProductOption[] = [
     packSize: 6,
     flavor: "chocolate_chip",
     priceCents: 1200,
-    stripePriceId: "price_cc_6",
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_CC_6", "price_cc_6"),
   },
   {
     id: "cc-12",
@@ -28,7 +31,7 @@ export const products: ProductOption[] = [
     packSize: 12,
     flavor: "chocolate_chip",
     priceCents: 2200,
-    stripePriceId: "price_cc_12",
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_CC_12", "price_cc_12"),
   },
   {
     id: "bc-6",
@@ -37,7 +40,7 @@ export const products: ProductOption[] = [
     packSize: 6,
     flavor: "butterscotch_chip",
     priceCents: 1300,
-    stripePriceId: "price_bc_6",
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_BC_6", "price_bc_6"),
   },
   {
     id: "bc-12",
@@ -46,7 +49,7 @@ export const products: ProductOption[] = [
     packSize: 12,
     flavor: "butterscotch_chip",
     priceCents: 2400,
-    stripePriceId: "price_bc_12",
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_BC_12", "price_bc_12"),
   },
   {
     id: "hh-6",
@@ -55,7 +58,7 @@ export const products: ProductOption[] = [
     packSize: 6,
     flavor: "half_half",
     priceCents: 1300,
-    stripePriceId: "price_hh_6",
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_HH_6", "price_hh_6"),
   },
   {
     id: "hh-12",
@@ -64,7 +67,7 @@ export const products: ProductOption[] = [
     packSize: 12,
     flavor: "half_half",
     priceCents: 2400,
-    stripePriceId: "price_hh_12",
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_HH_12", "price_hh_12"),
   },
 ];
 
