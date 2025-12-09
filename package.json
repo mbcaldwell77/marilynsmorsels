@@ -28,6 +28,7 @@
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.7",
     "pdf-poppler": "^0.2.3",
+    "supabase": "^2.65.7",
     "typescript": "^5.9.3"
   }
 }

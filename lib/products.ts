@@ -1,5 +1,9 @@
 export type PackSize = 6 | 12;
-export type FlavorOption = "chocolate_chip" | "butterscotch_chip" | "half_half";
+export type FlavorOption =
+  | "chocolate_chip"
+  | "butterscotch_chip"
+  | "half_half"
+  | "cookie_dough";
 
 export interface ProductOption {
   id: string;
@@ -68,6 +72,24 @@ export const products: ProductOption[] = [
     flavor: "half_half",
     priceCents: 2400,
     stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_HH_12", "price_hh_12"),
+  },
+  {
+    id: "dough-pint",
+    name: "Chocolate Chip Cookie Dough Pint",
+    description: "Ready-to-bake chocolate chip cookie dough, pint size.",
+    packSize: 12,
+    flavor: "cookie_dough",
+    priceCents: 2000,
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_CC_CDP", "price_cc_cdp"),
+  },
+  {
+    id: "dough-quart",
+    name: "Chocolate Chip Cookie Dough Quart",
+    description: "Party-ready quart of chocolate chip cookie dough.",
+    packSize: 12,
+    flavor: "cookie_dough",
+    priceCents: 3000,
+    stripePriceId: priceId("NEXT_PUBLIC_STRIPE_PRICE_CC_CDQ", "price_cc_cdq"),
   },
 ];
 
